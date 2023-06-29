@@ -4,80 +4,109 @@
   <meta charset="UTF-8">
   <title>Title</title>
   <style>
-    body {
-      font-family: Arial, sans-serif;
-      background-color: #f2f2f2;
+    /* Styles for the hamburger menu */
+    .hamburger {
+      position: fixed;
+      top: 10px;
+      left: 10px;
+      z-index: 9999;
+      cursor: pointer;
     }
 
-    .container {
+    .hamburger span {
+      display: block;
+      width: 25px;
+      height: 3px;
+      margin-bottom: 5px;
+      background-color: #333;
+    }
+
+    /* Styles for the dashboard */
+    .dashboard {
+      position: fixed;
+      top: 0;
+      left: -400px; /* Initially hidden off-screen */
+      width: 400px;
+      height: 100%;
+      background-color: #f2f2f2;
+      transition: left 0.3s ease; /* Add a smooth transition */
+      z-index: 9998;
+    }
+
+    .dashboard.open {
+      left: 0; /* Slide in from the left when open class is added */
+    }
+
+    .dashboard .container {
       max-width: 400px;
-      margin: 0 auto;
+      margin: 50px auto;
       padding: 20px;
       background-color: #fff;
       border-radius: 5px;
       box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
     }
 
-    .form-group {
+    .dashboard .form-group {
       margin-bottom: 15px;
     }
 
-    .form-group label {
+    .dashboard .form-group label {
       display: block;
       margin-bottom: 5px;
       font-weight: bold;
     }
 
-    .form-group input {
+    .dashboard .form-group input {
       width: 100%;
       padding: 8px;
       border: 1px solid #ccc;
       border-radius: 3px;
     }
 
-    .form-group input[type="submit"] {
+    .dashboard .form-group input[type="submit"] {
       background-color: #4CAF50;
       color: #fff;
       cursor: pointer;
     }
 
-    .form-group input[type="submit"]:hover {
+    .dashboard .form-group input[type="submit"]:hover {
       background-color: #45a049;
     }
   </style>
+  <script>
+    // Function to toggle the visibility of the dashboard
+    function toggleDashboard() {
+      const dashboard = document.querySelector('.dashboard');
+      dashboard.classList.toggle('open');
+    }
+  </script>
 </head>
 <body>
-<div class="container">
-  <h1>CBT BUYER Dashboard</h1>
-
-
-  <table>
-    <thead>
-    <tr>
-      <th>First Name<br></th>
-      <th>Last Name<br></th>
-      <th>Email<br></th>
-      <th>Phone<br></th>
-    </tr>
-    </thead>
-    <tbody>
-    <tr th:if="${userdetail != null}">
-      <td><span th:text="${userdetail.firstname}<br>"></span></td>
-    </tr>
-    <tr th:if="${userdetail != null}">
-      <td th:text="${userdetail.lastname}<br>"></td>
-    </tr>
-    <tr th:if="${userdetail != null}">
-      <td><span th:text="${userdetail.email}<br>"></span></td>
-    </tr>
-    <tr th:if="${userdetail != null}">
-      <td th:text="${userdetail.phone}<br>"></td>
-    </tr>
-
-    </tbody>
-  </table>
-
-
+<div class="hamburger" onclick="toggleDashboard()">
+  <span></span>
+  <span></span>
+  <span></span>
+</div>
+<div class="dashboard">
+  <div class="container">
+    <h1>CBT BUYER Dashboard</h1>
+    <table>
+      <thead>
+      <tr>
+        <th>Name</th>
+        <th>Email</th>
+        <th>Phone</th>
+      </tr>
+      </thead>
+      <tbody>
+      <tr th:if="${userdetail != null}">
+        <td><span th:text="${userdetail.firstname}"></span><br></td>
+        <td><span th:text="${userdetail.email}"></span><br></td>
+        <td th:text="${userdetail.phone}"><br></td>
+      </tr>
+      </tbody>
+    </table>
+  </div>
 </div>
 </body>
 </html>

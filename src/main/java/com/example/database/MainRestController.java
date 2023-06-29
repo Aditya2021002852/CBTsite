@@ -30,25 +30,25 @@ public class MainRestController {
         return userdetail;
     }
 
-    @GetMapping("/usertypelink")
-    public List<Usertypelink> getUserTypes(@RequestParam("username") String username)
-    {
-        return usertypelinkRepository.findByUsername(username);
-    }
+//    @GetMapping("/usertypelink")
+//    public List<Usertypelink> getUserTypes(@RequestParam("username") String username)
+//    {
+//        return usertypelinkRepository.findByUsername(username);
+//    }
 
-    @PostMapping("getuserbyemail")
-    public ResponseEntity<Userdetail> getUserdetailsByEmail(@RequestParam("email") String email)
-    {
-        if(userdetailRepository.findByEmail(email).isPresent())
-        {
-            return new ResponseEntity<>(userdetailRepository.findByEmail(email).get(), HttpStatus.OK);
-        }
-
-        else
-        {
-            return new ResponseEntity<>(HttpStatus.NO_CONTENT);
-        }
-    }
+//    @PostMapping("getuserbyemail")
+//    public ResponseEntity<Userdetail> getUserdetailsByEmail(@RequestParam("email") String email)
+//    {
+//        if(userdetailRepository.findByEmail(email).isPresent())
+//        {
+//            return new ResponseEntity<>(userdetailRepository.findByEmail(email).get(), HttpStatus.OK);
+//        }
+//
+//        else
+//        {
+//            return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+//        }
+//    }
 
 
 }

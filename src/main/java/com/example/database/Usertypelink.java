@@ -9,22 +9,14 @@ import javax.persistence.Table;
 @Table(name = "usertypelinks")
 public class Usertypelink {
     @Id
-    @Column(name = "id", nullable = false, length = 10)
-    private String id;
-
-    @Column(name = "username", length = 50)
+    @Column(name = "username", nullable = false, length = 50)
     private String username;
 
     @Column(name = "type", length = 10)
     private String type;
 
-    public String getId() {
-        return id;
-    }
-
-    public void setId(String id) {
-        this.id = id;
-    }
+    @Column(name = "id", nullable = false, length = 10)
+    private String id;
 
     public String getUsername() {
         return username;
@@ -40,6 +32,14 @@ public class Usertypelink {
 
     public void setType(String type) {
         this.type = type;
+    }
+
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
     }
 
 }
