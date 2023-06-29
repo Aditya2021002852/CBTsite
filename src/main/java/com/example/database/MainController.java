@@ -142,6 +142,7 @@ public class MainController {
         model.addAttribute("message", "Successfully registered!");
 
         return "redirect:/usertypelink";
+
     }
 
 
