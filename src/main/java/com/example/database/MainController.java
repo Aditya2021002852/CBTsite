@@ -26,7 +26,7 @@ public class MainController {
     @Autowired
     UsertypelinkRepository usertypelinkRepository;
 
-    @GetMapping("/landing")
+    @GetMapping("/")
     public String getLandingPage() {
 
         return "landingpage";
@@ -37,14 +37,6 @@ public class MainController {
         return "usertype";
     }
 
-    //    @GetMapping("/save")
-//    public String saveCredentials() {
-//        Credential credential = new Credential();
-//        credential.setUsername("Aditya");
-//        credential.setPassword("Aditya@123");
-//        credentialRepository.save(credential);
-//        return "New Credential Saved";
-//    }
 
     @GetMapping("/interimdashboard")
     public String getInterimDashboard() {
@@ -93,36 +85,29 @@ public class MainController {
                 session.setAttribute("username", username);
 
                 Optional<Userdetail> userdetail = userdetailRepository.findById(username);
-                List<Usertypelink> usertypelinks = usertypelinkRepository.findAll();
-                Optional<Usertypelink> usertypelink = usertypelinks.stream().filter(usertypelink1 -> usertypelink1.getUsername().equals(username)).findAny();
-
-
-                if (usertypelink.isPresent()) {
-                    if (usertypelink.get().getType().equals("seller")) {
-
-                        return "sellerdashboard";
-                    } else if (usertypelink.get().getType().equals("buyer")) {
-                        return "buyerdashboard";
-                    } else {
-                        return "userdetails";
-                    }
-                }
-
                 if (userdetail.isPresent()) {
-                    model.addAttribute("userdetail", userdetail.get());
+                    Optional<Usertypelink> usertypelink = usertypelinkRepository.findById(username);
+                    if (usertypelink.isPresent()) {
+                        if (usertypelink.get().getType().equals("buyer")) {
+                            return "buyerdashboard";
+                        } else if (usertypelink.get().getType().equals("seller")) {
+                            return "sellerdashboard";
+                        }
+                    }
+                    return "userdetails";
                 }
                 return "sellerdashboard";
             } else {
                 model.addAttribute("error", "Invalid password");
                 return "landingpage";
             }
-
         } else {
             model.addAttribute("error", "User not registered");
             return "landingpage";
-
         }
     }
+
+
 
 
     @PostMapping("/userdetails")
@@ -140,7 +125,9 @@ public class MainController {
         userdetailRepository.save(userdetails);
 
         model.addAttribute("message", "Successfully registered!");
-
+        model.addAttribute("firstname", firstname);
+        model.addAttribute("email", email);
+        model.addAttribute("phone", phone);
         return "redirect:/usertypelink";
 
     }
@@ -157,7 +144,7 @@ public class MainController {
 
             usertypelinkRepository.save(userTypeLink);
             
-        return "redirect:/landing";
+        return "landingpage";
     }
 
 
