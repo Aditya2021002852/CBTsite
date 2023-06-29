@@ -1,7 +1,0 @@
-spring:
-  thymeleaf:
-    enabled: true
-  mvc:
-    view:
-      prefix: /templates/
-      suffix: .html

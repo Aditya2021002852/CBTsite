@@ -10,6 +10,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/api/v0.1")
+@CrossOrigin(origins = "http://localhost:4200")
 public class MainRestController {
 
     @Autowired
@@ -18,7 +19,18 @@ public class MainRestController {
     @Autowired
     UsertypelinkRepository usertypelinkRepository;
 
-    @GetMapping
+    @GetMapping("getdummyuser")
+    public Userdetail getDummyUser()
+    {
+        Userdetail userdetail = new Userdetail();
+        userdetail.setEmail("aditya@gmail.com");
+        userdetail.setFirstname("Aditya");
+        userdetail.setLastname("Aggarwal");
+        userdetail.setPhone("9599310840");
+        return userdetail;
+    }
+
+    @GetMapping("/usertypelink")
     public List<Usertypelink> getUserTypes(@RequestParam("username") String username)
     {
         return usertypelinkRepository.findByUsername(username);
@@ -37,4 +49,6 @@ public class MainRestController {
             return new ResponseEntity<>(HttpStatus.NO_CONTENT);
         }
     }
+
+
 }
